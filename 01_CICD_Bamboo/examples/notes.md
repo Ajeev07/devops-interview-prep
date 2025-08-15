@@ -36,3 +36,82 @@ A: Use parallel jobs, caching, artifact sharing, and split long-running tests.
 
 Q: Can Bamboo do deployment approvals?
 A: Yes — via deployment projects with manual stages/approval gates.
+
+
+Topic 2 – Bamboo Advanced Concepts
+1️⃣ Variables in Bamboo
+Global variables → Available to all plans across Bamboo.
+
+Plan variables → Specific to a single plan; override global if same name.
+
+Environment variables → Set per environment in deployment projects.
+
+Use case:
+
+{{env}} variable in your build can select dev/staging/prod config files automatically.
+
+Interview tip:
+
+Q: How do you manage secrets in Bamboo?
+
+A: Use Bamboo secure variables, encrypted and masked in logs.
+
+2️⃣ Artifacts
+Definition → Files produced by a job that you want to share with other jobs/plans.
+
+Types → Shared vs Linked artifacts.
+
+Use case: Build JAR → share to next stage → deploy using XLD.
+
+Interview tip:
+
+Q: How do artifacts help in multi-stage pipelines?
+
+A: Avoids rebuilding code, improves efficiency, and ensures consistency between stages.
+
+3️⃣ Triggers
+Manual → Run build manually
+
+VCS Trigger → Run build on code commit (push)
+
+Scheduled → Cron-like scheduled builds
+
+Remote trigger → API call triggers a build
+
+Interview tip:
+
+Q: How do you ensure CI triggers only when relevant changes occur?
+
+A: Configure VCS triggers with path filters, or branch-specific triggers.
+
+4️⃣ Build Plan Best Practices
+Keep stages small and modular → easier troubleshooting
+
+Use parallel jobs where possible → faster builds
+
+Maintain clean working directories → prevent artifacts from previous builds affecting current runs
+
+Add unit tests + static analysis in early stages → catch errors before deploy
+
+5️⃣ Real-World Bamboo Scenario (Interview Example)
+Scenario:
+
+You have a build plan with dev, staging, and prod stages.
+
+Dev and staging deploy automatically. Prod requires manual approval.
+
+Suddenly, staging deployment fails.
+
+Questions to Answer:
+
+How do you troubleshoot the failure?
+
+What actions prevent prod deployment of broken code?
+
+Sample Answer:
+
+Check Bamboo job logs, artifacts, and agent output
+
+Investigate failing tests or deployment scripts
+
+Use manual approval gates on prod to prevent automatic deployment
