@@ -112,3 +112,80 @@ Bamboo picks pom.xml → runs build.
 Output artifact (JAR/WAR) → uploaded to Nexus.
 
 Next stage (like XLD deployment) picks artifact.
+
+
+
+gradle
+========================
+
+📌 1. What is Gradle?
+Gradle is a build automation tool (like Maven/Ant).
+
+It uses a Groovy/Kotlin DSL instead of XML (like Maven’s pom.xml).
+
+Faster than Maven → uses incremental builds (only rebuilds what changed).
+
+📌 2. Gradle vs Maven
+Feature	Maven	Gradle
+Build Script	XML (pom.xml)	Groovy/Kotlin (build.gradle)
+Performance	Slower (rebuilds everything)	Faster (incremental builds, caching)
+Lifecycle	Fixed lifecycle phases	Flexible task-based
+Dependency Management	Centralized in pom.xml	More flexible (configurations)
+Extensibility	Plugins (but limited)	Plugins + custom tasks (very flexible)
+
+📌 3. Build Lifecycle in Gradle
+Maven has fixed lifecycle → clean → compile → test → package → install → deploy
+
+Gradle works with tasks. Example:
+
+clean → deletes build/ folder
+
+compileJava → compiles Java code
+
+test → runs unit tests
+
+jar → packages code into .jar
+
+build → runs compile + test + jar
+
+👉 You can chain tasks:
+
+bash
+Copy
+Edit
+gradle clean build
+This means "delete old build, then build everything."
+
+📌 4. Typical build.gradle
+groovy
+Copy
+Edit
+plugins {
+    id 'java'   // applies Java plugin
+}
+
+repositories {
+    mavenCentral()   // use Maven central repo
+}
+
+dependencies {
+    implementation 'org.springframework.boot:spring-boot-starter'
+    testImplementation 'junit:junit:4.13.2'
+}
+📌 5. Running Gradle Commands
+gradle tasks → lists all available tasks
+
+gradle build → compiles, tests, packages
+
+gradle clean build → deletes old builds then rebuilds
+
+gradle test → runs only tests
+
+gradle dependencies → shows dependency tree
+
+📌 6. Dependencies in Gradle
+If dependency not found locally → Gradle downloads from remote repo (Maven Central).
+
+Cached in ~/.gradle/caches/ (similar to Maven’s ~/.m2/repository/).
+
+Next build uses cache → faster.
